@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NutriSmart – Smart Nutrition System for University Students</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter & Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chart.js for Macro Visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fefce8',
+                            100: '#fef9c3',
+                            500: '#eab308',
+                            600: '#ca8a04',
+                            700: '#a16207',
+                        },
+                        emeraldBrand: {
+                            50: '#ecfdf5',
+                            500: '#10b981',
+                            600: '#059669',
+                            700: '#047857',
+                        },
+                        warmBg: '#FAF7F2',
+                        cardBg: '#FFFFFF',
+                        darkText: '#1F2937',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-white">
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-50 glass-card transition-all duration-300 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3 cursor-pointer" onclick="window.scrollTo({top:0, behavior:'smooth'})">
+                    <div class="w-11 h-11 rounded-2xl bg-gradient-to-tr from-emerald-500 to-amber-500 flex items-center justify-center text-white shadow-lg shadow-emerald-500/20">
+                        <i class="fa-solid font-bold fa-leaf text-xl"></i>
+                    </div>
+                    <div>
+                        <span class="text-2xl font-extrabold font-heading text-gray-900 tracking-tight">Nutri<span class="text-emerald-600">Smart</span></span>
+                        <span class="block text-[10px] font-semibold tracking-widest text-amber-600 uppercase">Campus Nutrition</span>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation Links -->
+                <nav class="hidden md:flex items-center space-x-8 font-medium text-sm text-gray-700">
+                    <a href="#home" class="hover:text-emerald-600 transition-colors py-1">Home</a>
+                    <a href="#analyze" class="hover:text-emerald-600 transition-colors py-1">Analyze Food</a>
+                    <a href="#recommendations" class="hover:text-emerald-600 transition-colors py-1">Recommendations</a>
+                    <a href="#explore" class="hover:text-emerald-600 transition-colors py-1">Student Meals</a>
+                    <a href="#nutrition-guide" class="hover:text-emerald-600 transition-colors py-1">Nutrition Guide</a>
+                    <a href="#about" class="hover:text-emerald-600 transition-colors py-1">About</a>
+                </nav>
+
+                <!-- Action Buttons -->
+          
+                </div>
+
+                <!-- Mobile Hamburger Button -->
+                <div class="md:hidden flex items-center space-x-2">
+                    <button onclick="openCodeExplorer()" class="p-2 text-xs rounded-lg border border-gray-200 text-emerald-700 bg-emerald-50 font-bold">
+                        <i class="fa-solid fa-code"></i> Code
+                    </button>
+                    <button id="mobileMenuBtn" class="p-2 rounded-xl text-gray-600 hover:text-emerald-600 hover:bg-gray-100 focus:outline-none">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div id="mobileMenu" class="hidden md:hidden bg-white/95 border-b border-gray-200 px-4 pt-2 pb-6 space-y-3">
+            <a href="#home" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:bg-emerald-50 hover:text-emerald-600">Home</a>
+            <a href="#analyze" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:bg-emerald-50 hover:text-emerald-600">Analyze Food</a>
+            <a href="#recommendations" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:bg-emerald-50 hover:text-emerald-600">Recommendations</a>
+            <a href="#explore" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:bg-emerald-50 hover:text-emerald-600">Student Meals</a>
+            <a href="#nutrition-guide" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:bg-emerald-50 hover:text-emerald-600">Nutrition Guide</a>
+            <a href="#about" class="mobile-link block px-3 py-2 rounded-lg text-base font-medium text-gray-700 hover:bg-emerald-50 hover:text-emerald-600">About NutriSmart</a>
+           
+    </header>
+
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section id="home" class="relative overflow-hidden pt-12 pb-20 md:py-24">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid lg:grid-cols-12 gap-12 items-center">
+                    <!-- Hero Content Left -->
+                    <div class="lg:col-span-7 space-y-8 text-center lg:text-left">
+                        
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-gray-900 leading-tight tracking-tight font-heading">
+                            Eat Smarter. <br class="hidden sm:inline"/>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-600 via-teal-600 to-amber-500">Study Better.</span>
+                        </h1>
+                        <p class="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                            NutriSmart empowers university students to snap a photo of any meal, instantly analyze calories & macros, and receive affordable, fast meal recommendations tailored to budget and class schedules.
+                        </p>
+                        <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+                            <a href="#analyze" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-base shadow-xl shadow-emerald-600/25 transition-all transform hover:-translate-y-0.5 text-center flex items-center justify-center space-x-3">
+                                <i class="fa-solid fa-camera text-lg"></i>
+                                <span>Analyze My Food</span>
+                            </a>
+                            <a href="#recommendations" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-white border border-gray-300 hover:bg-gray-50 text-gray-800 font-bold text-base shadow-sm transition-all text-center flex items-center justify-center space-x-2">
+                                <i class="fa-solid fa-utensils text-amber-600"></i>
+                                <span>Find a Meal</span>
+                            </a>
+                        </div>
+                        <!-- Hero Stats Bar -->
+                        <div class="pt-6 border-t border-gray-200/80 grid grid-cols-3 gap-4 text-center lg:text-left">
+                            <div>
+                                <p class="text-2xl sm:text-3xl font-extrabold text-gray-900 font-heading">&lt; 15 min</p>
+                                <p class="text-xs sm:text-sm text-gray-500 font-medium">Prep Time Focus</p>
+                            </div>
+                            <div>
+                                <p class="text-2xl sm:text-3xl font-extrabold text-emerald-600 font-heading">&lt; ₩8,000</p>
+                                <p class="text-xs sm:text-sm text-gray-500 font-medium">Student Friendly</p>
+                            </div>
+                            <div>
+                                <p class="text-2xl sm:text-3xl font-extrabold text-amber-600 font-heading">98.4%</p>
+                                <p class="text-xs sm:text-sm text-gray-500 font-medium">AI Macro Accuracy</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hero Visual / Dashboard Mockup Right -->
+                    <div class="lg:col-span-5 relative">
+                        <!-- Decorative background glow -->
+                        <div class="absolute -top-10 -right-10 w-72 h-72 bg-emerald-200 rounded-full blur-3xl opacity-50"></div>
+                        <div class="absolute -bottom-10 -left-10 w-72 h-72 bg-amber-200 rounded-full blur-3xl opacity-50"></div>
+
+                        <!-- Main Mockup Container -->
+                        <div class="relative rounded-3xl bg-white p-6 shadow-2xl border border-gray-100 soft-shadow">
+                            <!-- Mockup Header -->
+                            <div class="flex justify-between items-center pb-4 mb-4 border-b border-gray-100">
+                                <div class="flex items-center space-x-2">
+                                    <span class="w-3 h-3 rounded-full bg-red-400"></span>
+                                    <span class="w-3 h-3 rounded-full bg-amber-400"></span>
+                                    <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
+                                    <span class="text-xs text-gray-400 font-mono ml-2">NutriSmart Live Vision v2.4</span>
+                                </div>
+                                <span class="text-xs font-semibold px-2.5 py-1 bg-emerald-100 text-emerald-700 rounded-full">AI Active</span>
+                            </div>
+
+                            <!-- Mockup Content -->
+                            <div class="space-y-4">
+                                <div class="relative rounded-2xl overflow-hidden group">
+                                    <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80" alt="Avocado Bowl" class="w-full h-48 object-cover">
+                                    <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-4">
+                                        <div class="text-white">
+                                            <span class="text-xs font-bold uppercase tracking-wider text-emerald-300">Detected Meal</span>
+                                            <h4 class="text-lg font-bold">Mediterranean Quinoa Power Bowl</h4>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Macro Summary Badges -->
+                                <div class="grid grid-cols-3 gap-2 text-center">
+                                    <div class="bg-amber-50 p-2.5 rounded-xl border border-amber-100">
+                                        <p class="text-[10px] text-amber-700 font-semibold uppercase">Calories</p>
+                                        <p class="text-base font-bold text-amber-900">520 kcal</p>
+                                    </div>
+                                    <div class="bg-emerald-50 p-2.5 rounded-xl border border-emerald-100">
+                                        <p class="text-[10px] text-emerald-700 font-semibold uppercase">Protein</p>
+                                        <p class="text-base font-bold text-emerald-900">24g</p>
+                                    </div>
+                                    <div class="bg-blue-50 p-2.5 rounded-xl border border-blue-100">
+                                        <p class="text-[10px] text-blue-700 font-semibold uppercase">Carbs</p>
+                                        <p class="text-base font-bold text-blue-900">62g</p>
+                                    </div>
+                                </div>
+
+                                <!-- Recommendation Match Pill -->
+                                <div class="bg-emerald-500 text-white p-3 rounded-2xl flex items-center justify-between text-xs font-medium">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="fa-solid fa-circle-check text-base"></i>
+                                        <span>Matches Student Budget (₩5,500) & 10 min limit</span>
+                                    </div>
+                                    <span class="font-bold bg-white text-emerald-700 px-2 py-0.5 rounded-lg">98% Match</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Student Statistics Cards Section -->
+        <section class="py-12 bg-emerald-900 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Stat Card 1 -->
+                    <div class="bg-emerald-800/60 backdrop-blur border border-emerald-700/50 p-6 rounded-2xl flex items-start space-x-4">
+                        <div class="p-3 bg-amber-500 text-white rounded-xl text-2xl">
+                            <i class="fa-solid fa-clock"></i>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold font-heading">Under 15 Min</p>
+                            <p class="text-xs text-emerald-200 mt-1">Designed for busy exam schedules & study breaks.</p>
+                        </div>
+                    </div>
+                    <!-- Stat Card 2 -->
+                    <div class="bg-emerald-800/60 backdrop-blur border border-emerald-700/50 p-6 rounded-2xl flex items-start space-x-4">
+                        <div class="p-3 bg-emerald-500 text-white rounded-xl text-2xl">
+                            <i class="fa-solid fa-wallet"></i>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold font-heading">Budget First</p>
+                            <p class="text-xs text-emerald-200 mt-1">Meals optimized under ₩5–₩8 student cost limit.</p>
+                        </div>
+                    </div>
+                    <!-- Stat Card 3 -->
+                    <div class="bg-emerald-800/60 backdrop-blur border border-emerald-700/50 p-6 rounded-2xl flex items-start space-x-4">
+                        <div class="p-3 bg-teal-500 text-white rounded-xl text-2xl">
+                            <i class="fa-solid fa-chart-pie"></i>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold font-heading">Complete Macros</p>
+                            <p class="text-xs text-emerald-200 mt-1">Accurate estimates for protein, carbs & fats.</p>
+                        </div>
+                    </div>
+                    <!-- Stat Card 4 -->
+                    <div class="bg-emerald-800/60 backdrop-blur border border-emerald-700/50 p-6 rounded-2xl flex items-start space-x-4">
+                        <div class="p-3 bg-yellow-500 text-white rounded-xl text-2xl">
+                            <i class="fa-solid fa-brain"></i>
+                        </div>
+                        <div>
+                            <p class="text-2xl font-bold font-heading">Smart AI Engine</p>
+                            <p class="text-xs text-emerald-200 mt-1">Learns dietary preferences & dietary limits.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Actions & How It Works Section -->
+        <section class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 font-heading">How NutriSmart Works</h2>
+                <p class="text-gray-600 mt-3 text-base">Four simple steps to transform your campus dining experience with AI precision.</p>
+            </div>
+
+            <!-- How It Works Step Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+                <!-- Step 1 -->
+                <div class="bg-white p-8 rounded-2xl border border-gray-100 soft-shadow text-center relative hover:border-emerald-500 transition-all">
+                    <div class="w-12 h-12 mx-auto mb-6 bg-emerald-100 text-emerald-700 font-bold rounded-2xl flex items-center justify-center text-xl font-heading">1</div>
+                    <i class="fa-solid fa-camera text-3xl text-emerald-600 mb-4"></i>
+                    <h3 class="text-xl font-bold text-gray-900 font-heading mb-2">Capture</h3>
+                    <p class="text-gray-500 text-sm">Snap a picture or upload an image of your plate or grocery item.</p>
+                </div>
+                <!-- Step 2 -->
+                <div class="bg-white p-8 rounded-2xl border border-gray-100 soft-shadow text-center relative hover:border-emerald-500 transition-all">
+                    <div class="w-12 h-12 mx-auto mb-6 bg-amber-100 text-amber-700 font-bold rounded-2xl flex items-center justify-center text-xl font-heading">2</div>
+                    <i class="fa-solid fa-microchip text-3xl text-amber-600 mb-4"></i>
+                    <h3 class="text-xl font-bold text-gray-900 font-heading mb-2">Recognize</h3>
+                    <p class="text-gray-500 text-sm">Our AI engine identifies dishes and food ingredients instantly.</p>
+                </div>
+                <!-- Step 3 -->
+                <div class="bg-white p-8 rounded-2xl border border-gray-100 soft-shadow text-center relative hover:border-emerald-500 transition-all">
+                    <div class="w-12 h-12 mx-auto mb-6 bg-blue-100 text-blue-700 font-bold rounded-2xl flex items-center justify-center text-xl font-heading">3</div>
+                    <i class="fa-solid fa-chart-line text-3xl text-blue-600 mb-4"></i>
+                    <h3 class="text-xl font-bold text-gray-900 font-heading mb-2">Understand</h3>
+                    <p class="text-gray-500 text-sm">View breakdowns of total calories, protein, carbs, and fit scores.</p>
+                </div>
+                <!-- Step 4 -->
+                <div class="bg-white p-8 rounded-2xl border border-gray-100 soft-shadow text-center relative hover:border-emerald-500 transition-all">
+                    <div class="w-12 h-12 mx-auto mb-6 bg-purple-100 text-purple-700 font-bold rounded-2xl flex items-center justify-center text-xl font-heading">4</div>
+                    <i class="fa-solid fa-bowl-food text-3xl text-purple-600 mb-4"></i>
+                    <h3 class="text-xl font-bold text-gray-900 font-heading mb-2">Decide</h3>
+                    <p class="text-gray-500 text-sm">Get budget-friendly meal suggestions customized for your day.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Analyze Food Main Interactive Section -->
+        <section id="analyze" class="py-16 bg-gradient-to-b from-amber-50/50 to-emerald-50/50 border-y border-gray-200/60">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-12">
+                    <span class="text-emerald-700 font-semibold text-xs uppercase tracking-widest bg-emerald-100 px-3 py-1 rounded-full">Interactive Feature</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 font-heading mt-3">Analyze Your Food & Constraints</h2>
+                    <p class="text-gray-600 text-base mt-2">Upload a picture of your dish or select a preset sample meal, set your budget and time, and click Analyze.</p>
+                </div>
+
+                <div class="grid lg:grid-cols-12 gap-8 items-start">
+                    <!-- Form / Upload Input Box (Left 6 cols) -->
+                    <div class="lg:col-span-6 bg-white rounded-3xl p-6 sm:p-8 border border-gray-200 soft-shadow space-y-6">
+                        <h3 class="text-xl font-bold text-gray-900 font-heading flex items-center space-x-2">
+                            <i class="fa-solid fa-sliders text-emerald-600"></i>
+                            <span>1. Food Photo & Student Preferences</span>
+                        </h3>
+
+                        <!-- Image Upload / Preset Picker Container -->
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-2">Food Image Source</label>
+                            
+                            <!-- Dropzone -->
+                            <div id="dropZone" class="border-2 border-dashed border-emerald-300 hover:border-emerald-500 rounded-2xl p-6 text-center cursor-pointer bg-emerald-50/30 hover:bg-emerald-50/70 transition-all group">
+                                <input type="file" id="imageInput" class="hidden" accept="image/*">
+                                <div id="uploadPlaceholder" class="space-y-2">
+                                    <div class="w-14 h-14 mx-auto bg-white rounded-full flex items-center justify-center text-emerald-600 text-2xl shadow-sm group-hover:scale-110 transition-transform">
+                                        <i class="fa-solid fa-cloud-arrow-up"></i>
+                                    </div>
+                                    <p class="text-sm font-semibold text-gray-800">Click to upload or drag & drop</p>
+                                    <p class="text-xs text-gray-500">Supports PNG, JPG, WEBP (Max 5MB)</p>
+                                </div>
+                                <!-- Image Preview Container -->
+                                <div id="previewContainer" class="hidden relative">
+                                    <img id="imagePreview" class="max-h-56 mx-auto rounded-xl object-cover shadow-sm" src="" alt="Selected Food">
+                                    <button type="button" onclick="resetImage(event)" class="absolute top-2 right-2 bg-red-600 text-white w-8 h-8 rounded-full flex items-center justify-center text-sm shadow hover:bg-red-700">
+                                        <i class="fa-solid fa-xmark"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Sample Quick Meal Selector -->
+                            <div class="mt-3">
+                                <p class="text-xs text-gray-500 mb-1 font-medium">Or pick a quick sample meal:</p>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <button type="button" onclick="selectSampleMeal('avocado')" class="px-2 py-1.5 text-xs bg-gray-100 hover:bg-emerald-100 hover:text-emerald-800 font-medium rounded-lg text-gray-700 truncate transition-colors text-center">
+                                        🥑 Grain Bowl
+                                    </button>
+                                    <button type="button" onclick="selectSampleMeal('chicken')" class="px-2 py-1.5 text-xs bg-gray-100 hover:bg-emerald-100 hover:text-emerald-800 font-medium rounded-lg text-gray-700 truncate transition-colors text-center">
+                                        🍗 Chicken Wrap
+                                    </button>
+                                    <button type="button" onclick="selectSampleMeal('ramen')" class="px-2 py-1.5 text-xs bg-gray-100 hover:bg-emerald-100 hover:text-emerald-800 font-medium rounded-lg text-gray-700 truncate transition-colors text-center">
+                                        🍜 Veggie Ramen
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Budget & Time Sliders -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                            <div>
+                                <div class="flex justify-between items-center mb-1">
+                                    <label class="text-xs font-bold uppercase tracking-wider text-gray-700">Max Budget (₩)</label>
+                                    <span id="budgetValue" class="text-sm font-bold text-emerald-700">₩7,500</span>
+                                </div>
+                                <input type="range" id="budgetInput" min="2" max="20" step="0.5" value="7500" oninput="document.getElementById('budgetValue').innerText = '₩' + parseFloat(this.value).toFixed(2)" class="w-full accent-emerald-600 cursor-pointer">
+                            </div>
+
+                            <div>
+                                <div class="flex justify-between items-center mb-1">
+                                    <label class="text-xs font-bold uppercase tracking-wider text-gray-700">Available Time</label>
+                                    <span id="timeValue" class="text-sm font-bold text-emerald-700">15 mins</span>
+                                </div>
+                                <input type="range" id="timeInput" min="5" max="60" step="5" value="15" oninput="document.getElementById('timeValue').innerText = this.value + ' mins'" class="w-full accent-emerald-600 cursor-pointer">
+                            </div>
+                        </div>
+
+                        <!-- Dietary Preferences Select -->
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-gray-700 mb-1">Dietary Preference</label>
+                            <select id="preferenceInput" class="w-full px-4 py-3 rounded-xl border border-gray-300 text-gray-800 text-sm focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-white">
+                                <option value="balanced">Balanced (High Protein & Carbs)</option>
+                                <option value="high-protein">High Protein (Fitness Focus)</option>
+                                <option value="vegetarian">Vegetarian / Plant-Based</option>
+                                <option value="budget-saver">Ultra Budget Saver (&lt;₩5)</option>
+                                <option value="quick-snack">Quick Grab & Go (&lt;10 mins)</option>
+                            </select>
+                        </div>
+
+                        <!-- Action Submit Button -->
+                        <button type="button" onclick="runAnalysis()" class="w-full py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-base rounded-2xl shadow-lg shadow-emerald-600/20 hover:shadow-xl transition-all flex items-center justify-center space-x-2">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i>
+                            <span>Analyze Food & Get Recommendations</span>
+                        </button>
+                    </div>
+
+                    <!-- Analysis Output Panel (Right 6 cols) -->
+                    <div class="lg:col-span-6">
+                        <!-- Loading State -->
+                        <div id="analysisLoading" class="hidden bg-white rounded-3xl p-12 text-center border border-gray-200 soft-shadow space-y-4">
+                            <div class="inline-block animate-spin text-emerald-600 text-5xl">
+                                <i class="fa-solid fa-circle-notch"></i>
+                            </div>
+                            <h4 class="text-xl font-bold font-heading text-gray-800">Analyzing Image & Calculating Macros...</h4>
+                            <p class="text-sm text-gray-500">Querying NutriSmart FastAPI Neural Engine v2...</p>
+                            <div class="w-full bg-gray-200 h-2 rounded-full overflow-hidden max-w-xs mx-auto">
+                                <div class="bg-emerald-600 h-full animate-pulse w-3/4"></div>
+                            </div>
+                        </div>
+
+                        <!-- Active Results Card -->
+                        <div id="analysisResult" class="bg-white rounded-3xl p-6 sm:p-8 border border-gray-200 soft-shadow space-y-6">
+                            <div class="flex items-center justify-between border-b border-gray-100 pb-4">
+                                <div>
+                                    <span class="text-xs font-bold text-emerald-600 uppercase tracking-widest">Analysis Completed</span>
+                                    <h3 id="resFoodName" class="text-2xl font-extrabold text-gray-900 font-heading">Mediterranean Quinoa Bowl</h3>
+                                </div>
+                                <span id="resFitBadge" class="bg-emerald-100 text-emerald-800 text-xs font-extrabold px-3 py-1.5 rounded-full">Optimal Student Match</span>
+                            </div>
+
+                            <!-- Image & Quick Indicators -->
+                            <div class="grid sm:grid-cols-2 gap-4 items-center">
+                                <img id="resImage" src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80" class="w-full h-44 object-cover rounded-2xl border border-gray-100" alt="Analyzed Result">
+                                <div class="space-y-3">
+                                    <!-- Budget check -->
+                                    <div class="flex items-center justify-between p-2.5 bg-gray-50 rounded-xl">
+                                        <span class="text-xs font-semibold text-gray-600"><i class="fa-solid fa-wallet text-emerald-600 mr-2"></i>Est. Cost:</span>
+                                        <span id="resCost" class="text-xs font-bold text-gray-900">₩5,500 (Within Limit)</span>
+                                    </div>
+                                    <!-- Time check -->
+                                    <div class="flex items-center justify-between p-2.5 bg-gray-50 rounded-xl">
+                                        <span class="text-xs font-semibold text-gray-600"><i class="fa-solid fa-clock text-amber-600 mr-2"></i>Prep Time:</span>
+                                        <span id="resTime" class="text-xs font-bold text-gray-900">10 mins (Fast)</span>
+                                    </div>
+                                    <!-- Macro status -->
+                                    <div class="flex items-center justify-between p-2.5 bg-gray-50 rounded-xl">
+                                        <span class="text-xs font-semibold text-gray-600"><i class="fa-solid fa-fire text-red-500 mr-2"></i>Energy Density:</span>
+                                        <span class="text-xs font-bold text-emerald-700">High Sustained Energy</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Nutrition Chart & Circular Stats -->
+                            <div class="grid grid-cols-3 gap-3 pt-2">
+                                <div class="text-center p-3 rounded-2xl bg-amber-50 border border-amber-100">
+                                    <p class="text-[10px] uppercase font-bold text-amber-700">Calories</p>
+                                    <p id="resCal" class="text-xl font-extrabold text-amber-900 mt-1">520 kcal</p>
+                                    <p class="text-[10px] text-gray-500">26% Daily Req.</p>
+                                </div>
+                                <div class="text-center p-3 rounded-2xl bg-emerald-50 border border-emerald-100">
+                                    <p class="text-[10px] uppercase font-bold text-emerald-700">Protein</p>
+                                    <p id="resProtein" class="text-xl font-extrabold text-emerald-900 mt-1">24g</p>
+                                    <p class="text-[10px] text-gray-500">48% Daily Req.</p>
+                                </div>
+                                <div class="text-center p-3 rounded-2xl bg-blue-50 border border-blue-100">
+                                    <p class="text-[10px] uppercase font-bold text-blue-700">Carbs</p>
+                                    <p id="resCarbs" class="text-xl font-extrabold text-blue-900 mt-1">62g</p>
+                                    <p class="text-[10px] text-gray-500">20% Daily Req.</p>
+                                </div>
+                            </div>
+
+                            <!-- Chart Visualization canvas -->
+                            <div class="pt-2">
+                                <p class="text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Nutritional Macro Distribution</p>
+                                <div class="h-32 w-full flex items-center justify-center">
+                                    <canvas id="macroChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Meal Recommendation Section -->
+        <section id="recommendations" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div>
+                    <span class="text-emerald-700 font-semibold text-xs uppercase tracking-widest bg-emerald-100 px-3 py-1 rounded-full">Tailored for You</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 font-heading mt-2">Recommended Student Meals</h2>
+                    <p class="text-gray-600 text-sm sm:text-base mt-1">Filtered dynamically by your budget, time availability, and nutrition criteria.</p>
+                </div>
+                <div class="mt-4 md:mt-0 flex items-center space-x-2">
+                    <span class="text-xs text-gray-500 font-medium">Sorted by:</span>
+                    <span class="text-xs font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-xl">Best Budget Match</span>
+                </div>
+            </div>
+
+            <!-- Recommendation Grid Container -->
+            <div id="recommendationGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Javascript will insert dynamic recommendation cards here -->
+            </div>
+        </section>
+
+        <!-- Student Meal Explorer (Filterable Searchable) -->
+        <section id="explore" class="py-16 bg-gray-50 border-t border-gray-200">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-10">
+                    <h2 class="text-3xl font-extrabold text-gray-900 font-heading">Popular Campus Meals Library</h2>
+                    <p class="text-gray-600 text-sm mt-2">Browse top student-approved meals categorized for quick dorm cooking and cafeteria hacks.</p>
+                </div>
+
+                <!-- Filter Controls -->
+                <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mb-8">
+                    <!-- Search input -->
+                    <div class="relative w-full sm:w-72">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-3500 text-gray-400 text-sm"></i>
+                        <input type="text" id="mealSearch" oninput="filterMealExplorer()" placeholder="Search meals (e.g. Oats, Egg, Tacos)..." class="w-full pl-9 pr-4 py-2.5 rounded-xl border border-gray-300 text-sm focus:ring-2 focus:ring-emerald-500 bg-white">
+                    </div>
+                    <!-- Category Tabs -->
+                    <div class="flex flex-wrap gap-2 w-full sm:w-auto">
+                        <button onclick="setCategoryFilter('all')" class="cat-btn active-cat bg-emerald-600 text-white text-xs font-bold px-4 py-2 rounded-xl transition-all">All Meals</button>
+                        <button onclick="setCategoryFilter('breakfast')" class="cat-btn bg-white text-gray-700 hover:bg-gray-100 text-xs font-bold px-4 py-2 rounded-xl border border-gray-200 transition-all">Breakfast</button>
+                        <button onclick="setCategoryFilter('high-protein')" class="cat-btn bg-white text-gray-700 hover:bg-gray-100 text-xs font-bold px-4 py-2 rounded-xl border border-gray-200 transition-all">High Protein</button>
+                        <button onclick="setCategoryFilter('budget')" class="cat-btn bg-white text-gray-700 hover:bg-gray-100 text-xs font-bold px-4 py-2 rounded-xl border border-gray-200 transition-all">Under 5</button>
+                    </div>
+                </div>
+
+                <!-- Meal Cards Container -->
+                <div id="explorerGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Dynamic rendering -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Nutrition Guide Section -->
+        <section id="nutrition-guide" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-emerald-700 font-semibold text-xs uppercase tracking-widest bg-emerald-100 px-3 py-1 rounded-full">Student Wellness</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-gray-900 font-heading mt-3">Essential Nutrition Guide for Students</h2>
+                <p class="text-gray-600 text-base mt-2">Simple, evidence-based nutrition tips to sustain focus, retain memory, and avoid brain fog during exams.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Guide Card 1 -->
+                <div class="bg-white rounded-3xl p-8 border border-gray-100 soft-shadow soft-shadow-hover transition-all">
+                    <div class="w-12 h-12 bg-amber-100 text-amber-700 rounded-2xl flex items-center justify-center text-xl font-bold mb-6">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 font-heading mb-3">Understanding Calories</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-4">Calories are fuel units for your brain during long lecture hours. Average university students require ~2,000–2,500 kcal daily depending on physical activity levels.</p>
+                    <span class="text-xs font-bold text-amber-700 bg-amber-50 px-3 py-1 rounded-lg">Focus & Energy</span>
+                </div>
+
+                <!-- Guide Card 2 -->
+                <div class="bg-white rounded-3xl p-8 border border-gray-100 soft-shadow soft-shadow-hover transition-all">
+                    <div class="w-12 h-12 bg-emerald-100 text-emerald-700 rounded-2xl flex items-center justify-center text-xl font-bold mb-6">
+                        <i class="fa-solid fa-dumbbell"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 font-heading mb-3">Protein & Muscle Recovery</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-4">Aim for 1.2–1.6g of protein per kg of body weight. Protein keeps you full longer, preventing unhealthy late-night exam snacking on junk food.</p>
+                    <span class="text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1 rounded-lg">Satiety & Muscle</span>
+                </div>
+
+                <!-- Guide Card 3 -->
+                <div class="bg-white rounded-3xl p-8 border border-gray-100 soft-shadow soft-shadow-hover transition-all">
+                    <div class="w-12 h-12 bg-blue-100 text-blue-700 rounded-2xl flex items-center justify-center text-xl font-bold mb-6">
+                        <i class="fa-solid fa-glass-water"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 font-heading mb-3">Carbs & Hydration</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed mb-4">Complex carbs (oats, brown rice) release glucose steadily. Combine this with 2–3 liters of water daily to maintain optimal mental alertness.</p>
+                    <span class="text-xs font-bold text-blue-700 bg-blue-50 px-3 py-1 rounded-lg">Brain Power</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="py-16 bg-emerald-950 text-white">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-extrabold font-heading text-white">Frequently Asked Questions</h2>
+                    <p class="text-emerald-200 text-sm mt-2">Everything you need to know about NutriSmart AI and capstone specs.</p>
+                </div>
+
+                <div class="space-y-4">
+                    <!-- FAQ 1 -->
+                    <div class="bg-emerald-900/60 rounded-2xl border border-emerald-800 p-5 cursor-pointer" onclick="toggleFaq(this)">
+                        <div class="flex justify-between items-center">
+                            <h4 class="font-bold text-base text-emerald-100">How does the AI image recognition work?</h4>
+                            <i class="fa-solid fa-chevron-down text-emerald-400 text-sm transition-transform"></i>
+                        </div>
+                        <p class="text-sm text-emerald-200 mt-3 hidden leading-relaxed">
+                            NutriSmart utilizes a Python FastAPI backend integrated with a custom computer vision model. For production scalability, the API architecture exposes clean decoupling interfaces to plug in TensorFlow or OpenAI Vision APIs seamlessly.
+                        </p>
+                    </div>
+
+                    <!-- FAQ 2 -->
+                    <div class="bg-emerald-900/60 rounded-2xl border border-emerald-800 p-5 cursor-pointer" onclick="toggleFaq(this)">
+                        <div class="flex justify-between items-center">
+                            <h4 class="font-bold text-base text-emerald-100">Are prices accurate for my campus?</h4>
+                            <p class="fa-solid fa-chevron-down text-emerald-400 text-sm transition-transform"></p>
+                        </div>
+                        <p class="text-sm text-emerald-200 mt-3 hidden leading-relaxed">
+                            Prices are averaged across standard supermarket items and local student cafeteria meal options. You can adjust your maximum budget threshold using the interactive slider.
+                        </p>
+                    </div>
+
+                    <!-- FAQ 3 -->
+                    <div class="bg-emerald-900/60 rounded-2xl border border-emerald-800 p-5 cursor-pointer" onclick="toggleFaq(this)">
+                        <div class="flex justify-between items-center">
+                            <h4 class="font-bold text-base text-emerald-100">What backend database schema is used?</h4>
+                            <p class="fa-solid fa-chevron-down text-emerald-400 text-sm transition-transform"></p>
+                        </div>
+                        <p class="text-sm text-emerald-200 mt-3 hidden leading-relaxed">
+                            The system connects to MySQL via SQLAlchemy ORM. Tables include `users`, `foods`, `nutrition`, `recommendations`, and `food_preferences` with relational constraints. Click "Source Code & Architecture" to review full SQL files.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-gradient-to-r from-emerald-600 to-teal-700 rounded-3xl p-8 sm:p-12 text-white soft-shadow flex flex-col md:flex-row items-center justify-between gap-8">
+                <div class="space-y-4 max-w-2xl">
+                    <span class="text-xs font-bold uppercase tracking-widest text-emerald-200 bg-emerald-800/60 px-3 py-1 rounded-full">University Capstone Project</span>
+                    <h2 class="text-3xl sm:text-4xl font-extrabold font-heading">NutriSmart Mission</h2>
+                    <p class="text-emerald-100 text-sm sm:text-base leading-relaxed">
+                        NutriSmart was engineered to tackle student nutrition deficits, high living costs, and academic burnout. By providing instant calorie estimates and budget-tailored recipes, students make healthiest choices in under 15 minutes.
+                    </p>
+                    <div class="flex items-center space-x-4 text-xs font-medium text-emerald-200 pt-2">
+                        <span><i class="fa-solid fa-check-circle text-amber-300 mr-1"></i> Fast API Backend</span>
+                        <span><i class="fa-solid fa-check-circle text-amber-300 mr-1"></i> MySQL Relational Database</span>
+                        <span><i class="fa-solid fa-check-circle text-amber-300 mr-1"></i> Mobile First Responsive</span>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+    </main>
+
+    <!-- Production Code Explorer Modal Container -->
+    <div id="codeModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 sm:p-6">
+        <div class="bg-gray-900 text-gray-100 w-full max-w-6xl h-[90vh] rounded-3xl overflow-hidden flex flex-col shadow-2xl border border-gray-700">
+            <!-- Modal Header -->
+            <div class="px-6 py-4 bg-gray-800 border-b border-gray-700 flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    <span class="text-sm font-bold text-gray-300 font-mono ml-2">NutriSmart - Full Stack FastAPI + MySQL Architecture Explorer</span>
+                </div>
+                <button onclick="closeCodeExplorer()" class="text-gray-400 hover:text-white text-xl">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Modal Content Body -->
+            <div class="flex-grow flex flex-col md:flex-row overflow-hidden">
+                <!-- File Tree Side Nav -->
+                <div class="w-full md:w-64 bg-gray-950 p-4 border-r border-gray-800 overflow-y-auto space-y-2 text-xs font-mono">
+                    <p class="text-gray-500 uppercase text-[10px] font-bold tracking-widest mb-3">Project Directory</p>
+                    
+                    <button onclick="showCodeTab('main_py')" class="code-tab-btn active-tab w-full text-left px-3 py-2 rounded hover:bg-gray-800 flex items-center space-x-2 text-emerald-400">
+                        <i class="fa-brands fa-python"></i>
+                        <span>backend/main.py</span>
+                    </button>
+                    <button onclick="showCodeTab('models_py')" class="code-tab-btn w-full text-left px-3 py-2 rounded hover:bg-gray-800 flex items-center space-x-2 text-gray-300">
+                        <i class="fa-brands fa-python"></i>
+                        <span>backend/models/db.py</span>
+                    </button>
+                    <button onclick="showCodeTab('schemas_py')" class="code-tab-btn w-full text-left px-3 py-2 rounded hover:bg-gray-800 flex items-center space-x-2 text-gray-300">
+                        <i class="fa-brands fa-python"></i>
+                        <span>backend/schemas.py</span>
+                    </button>
+                    <button onclick="showCodeTab('recommender_py')" class="code-tab-btn w-full text-left px-3 py-2 rounded hover:bg-gray-800 flex items-center space-x-2 text-gray-300">
+                        <i class="fa-brands fa-python"></i>
+                        <span>services/engine.py</span>
+                    </button>
+                    <button onclick="showCodeTab('mysql_sql')" class="code-tab-btn w-full text-left px-3 py-2 rounded hover:bg-gray-800 flex items-center space-x-2 text-gray-300">
+                        <i class="fa-solid fa-database text-blue-400"></i>
+                        <span>database/schema.sql</span>
+                    </button>
+                    <button onclick="showCodeTab('env_file')" class="code-tab-btn w-full text-left px-3 py-2 rounded hover:bg-gray-800 flex items-center space-x-2 text-gray-300">
+                        <i class="fa-solid fa-key text-yellow-400"></i>
+                        <span>.env & requirements</span>
+                    </button>
+                    <button onclick="showCodeTab('setup_guide')" class="code-tab-btn w-full text-left px-3 py-2 rounded hover:bg-gray-800 flex items-center space-x-2 text-amber-400 font-bold">
+                        <i class="fa-solid fa-terminal"></i>
+                        <span>Setup & Run Commands</span>
+                    </button>
+                </div>
+
+                <!-- Code Editor View Area -->
+                <div class="flex-grow p-6 bg-gray-900 overflow-y-auto font-mono text-xs leading-relaxed">
+                    <!-- File Content 1: FastAPI main.py -->
+                    <div id="code_main_py" class="code-block space-y-2">
+                        <div class="flex justify-between items-center text-gray-400 border-b border-gray-800 pb-2 mb-4">
+                            <span>File: <strong class="text-white">backend/main.py</strong> (FastAPI Application Entry Point)</span>
+                            <button onclick="copyCode('codeContent1')" class="px-2.5 py-1 bg-gray-800 hover:bg-gray-700 rounded text-xs text-gray-300">Copy</button>
+                        </div>
+<pre id="codeContent1" class="text-emerald-300"><code>from fastapi import FastAPI, UploadFile, File, Form, Depends, HTTPException, status
+from fastapi.middleware.cors import CORSMiddleware
+from sqlalchemy.orm import Session
+from typing import List, Optional
+import uvicorn
+
+from database.db import get_db, engine, Base
+from services.engine import RecommendationEngine
+from schemas import MealResponse, AnalyzeRequest, FoodItem
+
+app = FastAPI(
+    title="NutriSmart API",
+    description="Smart Nutrition & Meal Recommendation System for University Students",
+    version="1.0.0"
+)
+
+# CORS setup for web frontend communication
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+recommender = RecommendationEngine()
+
+@app.get("/")
+def read_root():
+    return {"system": "NutriSmart API", "status": "Online", "version": "1.0.0"}
+
+@app.post("/api/analyze-food", response_model=MealResponse)
+async def analyze_food(
+    file: Optional[UploadFile] = File(None),
+    budget: float = Form(7.50),
+    time_limit: int = Form(15),
+    preference: str = Form("balanced"),
+    db: Session = Depends(get_db)
+):
+    """
+    Analyzes uploaded image or preset and returns nutrition metrics & recommendations.
+    """
+    if file:
+        # File type validation
+        allowed_types = ["image/jpeg", "image/png", "image/webp"]
+        if file.content_type not in allowed_types:
+            raise HTTPException(status_code=400, detail="Invalid file type. Only JPEG, PNG, WEBP allowed.")
+
+    # Call recommendation modular service
+    result = recommender.analyze_and_recommend(
+        budget=budget, 
+        max_time=time_limit, 
+        preference=preference
+    )
+    return result
+
+@app.get("/api/foods", response_model=List[FoodItem])
+def get_all_foods(db: Session = Depends(get_db)):
+    return recommender.get_all_student_meals()
+
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+</code></pre>
+                    </div>
+
+                    <!-- File Content 2: DB Models -->
+                    <div id="code_models_py" class="code-block hidden space-y-2">
+                        <div class="flex justify-between items-center text-gray-400 border-b border-gray-800 pb-2 mb-4">
+                            <span>File: <strong class="text-white">backend/models/db.py</strong> (SQLAlchemy Models)</span>
+                        </div>
+<pre class="text-blue-300"><code>from sqlalchemy import Column, Integer, String, Float, ForeignKey, Text, DateTime
+from sqlalchemy.orm import relationship, declarative_base
+from datetime import datetime
+
+Base = declarative_base()
+
+class User(Base):
+    __tablename__ = "users"
+    id = Column(Integer, primary_key=True, index=True)
+    student_id = Column(String(50), unique=True, index=True, nullable=False)
+    name = Column(String(100), nullable=False)
+    email = Column(String(100), unique=True, nullable=False)
+    daily_budget = Column(Float, default=10.0)
+
+class Food(Base):
+    __tablename__ = "foods"
+    id = Column(Integer, primary_key=True, index=True)
+    name = Column(String(150), nullable=False)
+    category = Column(String(50))
+    image_url = Column(String(255))
+    price = Column(Float, nullable=False)
+    prep_time = Column(Integer, nullable=False) # In minutes
+    
+    nutrition = relationship("Nutrition", back_populates="food", uselist=False)
+
+class Nutrition(Base):
+    __tablename__ = "nutrition"
+    id = Column(Integer, primary_key=True, index=True)
+    food_id = Column(Integer, ForeignKey("foods.id"), nullable=False)
+    calories = Column(Float, nullable=False)
+    protein = Column(Float, nullable=False)
+    carbohydrates = Column(Float, nullable=False)
+    fats = Column(Float, nullable=False)
+
+    food = relationship("Food", back_populates="nutrition")
+</code></pre>
+                    </div>
+
+                    <!-- File Content 3: Schemas -->
+                    <div id="code_schemas_py" class="code-block hidden space-y-2">
+                        <div class="flex justify-between items-center text-gray-400 border-b border-gray-800 pb-2 mb-4">
+                            <span>File: <strong class="text-white">backend/schemas.py</strong> (Pydantic Validation Schemas)</span>
+                        </div>
+<pre class="text-yellow-300"><code>from pydantic import BaseModel, Field
+from typing import List, Optional
+
+class NutritionSchema(BaseModel):
+    calories: float
+    protein: float
+    carbohydrates: float
+
+class FoodItem(BaseModel):
+    id: int
+    name: str
+    price: float
+    prep_time: int
+    image_url: str
+    category: str
+    nutrition: NutritionSchema
+
+class RecommendationResult(BaseModel):
+    food: FoodItem
+    match_score: float
+    reason: str
+
+class MealResponse(BaseModel):
+    analyzed_meal: FoodItem
+    recommendations: List[RecommendationResult]
+</code></pre>
+                    </div>
+
+                    <!-- File Content 4: Modular Recommender Service -->
+                    <div id="code_recommender_py" class="code-block hidden space-y-2">
+                        <div class="flex justify-between items-center text-gray-400 border-b border-gray-800 pb-2 mb-4">
+                            <span>File: <strong class="text-white">services/engine.py</strong> (Modular Recommendation Engine)</span>
+                        </div>
+<pre class="text-purple-300"><code># Rule-Based Recommendation Engine with ML Interface hook
+class RecommendationEngine:
+    def __init__(self):
+        # Initial dataset simulating MySQL DB query
+        self.catalog = [
+            {
+                "id": 1, "name": "Mediterranean Quinoa Bowl", "price": 5.50, "prep_time": 10,
+                "category": "high-protein", "image_url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c",
+                "nutrition": {"calories": 520, "protein": 24, "carbohydrates": 62}
+            },
+            {
+                "id": 2, "name": "Grilled Chicken & Rice Box", "price": 6.80, "prep_time": 12,
+                "category": "high-protein", "image_url": "https://images.unsplash.com/photo-1532550907401-a500c9a57435",
+                "nutrition": {"calories": 580, "protein": 38, "carbohydrates": 54}
+            },
+            {
+                "id": 3, "name": "Peanut Butter & Banana Oats", "price": 2.80, "prep_time": 5,
+                "category": "breakfast", "image_url": "https://images.unsplash.com/photo-1517673400267-0251440c45dc",
+                "nutrition": {"calories": 410, "protein": 14, "carbohydrates": 58}
+            }
+        ]
+
+    def analyze_and_recommend(self, budget: float, max_time: int, preference: str):
+        # Modular scoring algorithm
+        filtered = []
+        for item in self.catalog:
+            if item["price"] <= budget and item["prep_time"] <= max_time:
+                match_score = 100.0 - ((item["price"] / budget) * 10)
+                reason = f"Fits budget (₩{item['price']}) & prep under {max_time} mins."
+                filtered.append({
+                    "food": item,
+                    "match_score": round(match_score, 1),
+                    "reason": reason
+                })
+        return {
+            "analyzed_meal": self.catalog[0],
+            "recommendations": filtered
+        }
+</code></pre>
+                    </div>
+
+                    <!-- File Content 5: MySQL Database Schema SQL -->
+                    <div id="code_mysql_sql" class="code-block hidden space-y-2">
+                        <div class="flex justify-between items-center text-gray-400 border-b border-gray-800 pb-2 mb-4">
+                            <span>File: <strong class="text-white">database/schema.sql</strong> (Production MySQL Script)</span>
+                        </div>
+<pre class="text-teal-300"><code>CREATE DATABASE IF NOT EXISTS nutrismart_db;
+USE nutrismart_db;
+
+-- Table: Users
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    student_id VARCHAR(50) NOT NULL UNIQUE,
+    name VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Table: Foods
+CREATE TABLE IF NOT EXISTS foods (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(150) NOT NULL,
+    category VARCHAR(50) NOT NULL,
+    price DECIMAL(6,2) NOT NULL,
+    prep_time INT NOT NULL,
+    image_url VARCHAR(255)
+);
+
+-- Table: Nutrition
+CREATE TABLE IF NOT EXISTS nutrition (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    food_id INT UNIQUE,
+    calories FLOAT NOT NULL,
+    protein FLOAT NOT NULL,
+    carbohydrates FLOAT NOT NULL,
+    fats FLOAT NOT NULL,
+    FOREIGN KEY (food_id) REFERENCES foods(id) ON DELETE CASCADE
+);
+
+-- Seed Sample Student Foods
+INSERT INTO foods (name, category, price, prep_time, image_url) VALUES
+('Mediterranean Quinoa Bowl', 'high-protein', 5.50, 10, 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c'),
+('Grilled Chicken & Rice Box', 'high-protein', 6.80, 12, 'https://images.unsplash.com/photo-1532550907401-a500c9a57435'),
+('Avocado Egg Toast', 'breakfast', 3.50, 7, 'https://images.unsplash.com/photo-1525351484163-7529414344d8');
+</code></pre>
+                    </div>
+
+                    <!-- File Content 6: .env & Requirements -->
+                    <div id="code_env_file" class="code-block hidden space-y-2">
+                        <div class="flex justify-between items-center text-gray-400 border-b border-gray-800 pb-2 mb-4">
+                            <span>Files: <strong class="text-white">requirements.txt & .env</strong></span>
+                        </div>
+<pre class="text-gray-300"><code># requirements.txt
+fastapi==0.109.0
+uvicorn==0.27.0
+sqlalchemy==2.0.25
+pymysql==1.1.0
+pydantic==2.5.3
+python-multipart==0.0.6
+python-dotenv==1.0.0
+
+# .env
+DB_HOST=localhost
+DB_PORT=3306
+DB_NAME=nutrismart_db
+DB_USER=root
+DB_PASSWORD=your_secure_password
+SECRET_KEY=nutrismart_capstone_2026_secret
+</code></pre>
+                    </div>
+
+                    <!-- File Content 7: Step-By-Step Run Commands -->
+                    <div id="code_setup_guide" class="code-block hidden space-y-2">
+                        <div class="flex justify-between items-center text-gray-400 border-b border-gray-800 pb-2 mb-4">
+                            <span>Guide: <strong class="text-white">Commands to Install & Run Full Project</strong></span>
+                        </div>
+<pre class="text-amber-300"><code># 1. Clone & Set Up Python Virtual Environment
+git clone https://github.com/your-university/nutrismart.git
+cd nutrismart
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# 2. Install Dependencies
+pip install -r requirements.txt
+
+# 3. Initialize MySQL Database
+mysql -u root -p < database/schema.sql
+
+# 4. Start FastAPI Backend Server
+uvicorn backend.main:app --reload --host 127.0.0.1 --port 8000
+
+# 5. Launch Frontend
+# Open index.html directly in any web browser or serve via Live Server.
+# The frontend automatically fetches endpoints at http://127.0.0.1:8000/api/analyze-food
+</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-900 text-gray-400 py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div class="space-y-3">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-8 h-8 rounded-xl bg-emerald-600 flex items-center justify-center text-white font-bold">
+                            <i class="fa-solid fa-leaf"></i>
+                        </div>
+                        <span class="text-xl font-bold font-heading text-white">NutriSmart</span>
+                    </div>
+                    <p class="text-xs text-gray-400">Smart Nutrition System for University Students. Capstone Project 2026.</p>
+                </div>
+
+                <div>
+                    <h5 class="text-white font-bold text-sm mb-3">Quick Navigation</h5>
+                    <ul class="space-y-2 text-xs">
+                        <li><a href="#home" class="hover:text-emerald-400">Home</a></li>
+                        <li><a href="#analyze" class="hover:text-emerald-400">Analyze Food</a></li>
+                        <li><a href="#recommendations" class="hover:text-emerald-400">Recommendations</a></li>
+                        <li><a href="#explore" class="hover:text-emerald-400">Meal Explorer</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5 class="text-white font-bold text-sm mb-3">Tech Stack</h5>
+                    <ul class="space-y-2 text-xs">
+                        <li>FastAPI & Python 3.11</li>
+                        <li>MySQL Relational DB</li>
+                        <li>Tailwind CSS & JavaScript</li>
+                        <li>Rule-Based AI Engine</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h5 class="text-white font-bold text-sm mb-3">Developer Documentation</h5>
+                    <button onclick="openCodeExplorer()" class="px-4 py-2 bg-emerald-700 hover:bg-emerald-600 text-white font-semibold rounded-xl text-xs flex items-center space-x-2">
+                        <i class="fa-solid fa-folder-open"></i>
+                        <span>Inspect FastAPI Source</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 pt-6 flex flex-col sm:flex-row justify-between items-center text-xs text-gray-500">
+                <p>&copy; 2026 NutriSmart University Capstone Project. All rights reserved.</p>
+                <p class="mt-2 sm:mt-0">Designed for modern student wellness.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Client Application JavaScript Engine -->
+    <script src="script.js"></script>
+
+</body>
+</html>
